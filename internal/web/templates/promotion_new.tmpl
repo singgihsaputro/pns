@@ -1,0 +1,40 @@
+{{define "promotion_new.tmpl"}}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>New Promotion</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    nav a { margin-right: 1rem; }
+    label { display: block; margin-top: 0.75rem; }
+    input, textarea { width: 100%; padding: 0.35rem; box-sizing: border-box; }
+    .error { color: #c00; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>PNS Admin</strong>
+      <nav>
+        <a href="/admin/promotions">Promotions</a>
+        <a href="/admin/users">Users</a>
+      </nav>
+    </div>
+    <form action="/logout" method="post"><button type="submit">Logout</button></form>
+  </header>
+  <h2>New Promotion</h2>
+  {{if .error}}<div class="error">{{.error}}</div>{{end}}
+  <form method="post" action="/admin/promotions">
+    <label>Title<input type="text" name="title" required></label>
+    <label>Image URL<input type="url" name="image_url"></label>
+    <label>Description<textarea name="description" rows="4"></textarea></label>
+    <label>Start date<input type="date" name="start_date" required></label>
+    <label>End date<input type="date" name="end_date" required></label>
+    <button type="submit" style="margin-top:1rem;">Create</button>
+  </form>
+</body>
+</html>
+{{end}}
+

@@ -1,0 +1,45 @@
+{{define "promotion_edit.tmpl"}}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit Promotion</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    nav a { margin-right: 1rem; }
+    label { display: block; margin-top: 0.75rem; }
+    input, textarea, select { width: 100%; padding: 0.35rem; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>PNS Admin</strong>
+      <nav>
+        <a href="/admin/promotions">Promotions</a>
+        <a href="/admin/users">Users</a>
+      </nav>
+    </div>
+    <form action="/logout" method="post"><button type="submit">Logout</button></form>
+  </header>
+  <h2>Edit Promotion</h2>
+  <form method="post" action="/admin/promotions/{{.promo.ID}}/update">
+    <label>Title<input type="text" name="title" value="{{.promo.Title}}" required></label>
+    <label>Image URL<input type="url" name="image_url" value="{{.promo.ImageURL}}"></label>
+    <label>Description<textarea name="description" rows="4">{{.promo.Description}}</textarea></label>
+    <label>Start date<input type="date" name="start_date" value="{{date .promo.StartDate}}" required></label>
+    <label>End date<input type="date" name="end_date" value="{{date .promo.EndDate}}" required></label>
+    <label>Status
+      <select name="status">
+        <option value="created" {{if eq .promo.Status "created"}}selected{{end}}>created</option>
+        <option value="active" {{if eq .promo.Status "active"}}selected{{end}}>active</option>
+        <option value="inactive" {{if eq .promo.Status "inactive"}}selected{{end}}>inactive</option>
+      </select>
+    </label>
+    <button type="submit" style="margin-top:1rem;">Save</button>
+  </form>
+</body>
+</html>
+{{end}}
+

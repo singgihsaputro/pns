@@ -1,0 +1,57 @@
+{{define "users.tmpl"}}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Users</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    nav a { margin-right: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+    form.inline { display: inline; }
+    .actions { display: flex; gap: 0.5rem; align-items: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>PNS Admin</strong>
+      <nav>
+        <a href="/admin/promotions">Promotions</a>
+        <a href="/admin/users">Users</a>
+      </nav>
+    </div>
+    <form action="/logout" method="post"><button type="submit">Logout</button></form>
+  </header>
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>Users</h2>
+    <a href="/admin/users/new">New user</a>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Email</th><th>Created</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {{range .users}}
+      <tr>
+        <td>{{.Email}}</td>
+        <td>{{.CreatedAt}}</td>
+        <td class="actions">
+          <a href="/admin/users/{{.ID}}/edit">Edit</a>
+          <form class="inline" method="post" action="/admin/users/{{.ID}}/delete" onsubmit="return confirm('Delete user?');">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{else}}
+      <tr><td colspan="3">No users yet.</td></tr>
+      {{end}}
+    </tbody>
+  </table>
+</body>
+</html>
+{{end}}
+
